@@ -47,8 +47,7 @@ class Instabot:
             self.hashtags = [hashtag]
             self.rand_hashtag = False
 
-    
-
+   
     #Open up Instagram in Chrome and log in
     def boot_instagram(self):
 
