@@ -15,10 +15,23 @@ import csv
 
 #Create Bot
 class Instabot:
+    
+    data_folder = str(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))) #Import from same folder as python file
+    chromedriver = "\\chromedriver79.exe"
+    instagram = "https://instagram.com"
+    login = "//a[contains(text(), 'Log in')]"
+    my_username = "//input[@name=\"username\"]"
+    my_password = "//input[@name=\"password\"]"
+    submit = '//button[@type="submit"]'
+    notnow = "/html/body/div[4]/div/div/div[3]/button[2]"
+    heartcolor = "//*[local-name() = 'svg']"
+    heartbutton = "/html/body/div[1]/section/main/div/div/article/div[2]/section[1]/span[1]/button"
+    photo_username = "/html/body/div[1]/section/main/div/div/article/header/div[2]/div[1]/div[1]/a"
+   
+
     def __init__(self, hashtag, max_likes_htag, max_likes_total):
 
         #Initialize variables
-        self.data_folder = str(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))) #Import from same folder as python file
         self.links_record = [y for x in list(csv.reader(open(self.data_folder + "\\Links Record.csv", "rt", encoding = "utf-8"))) for y in x if x != []]
         self.hashtags_searched = []
         self.like_record = []
@@ -26,17 +39,6 @@ class Instabot:
         self.counter = 0
         self.max_likes_htag = max_likes_htag
         self.max_likes_total = randint(round(0.67 * max_likes_total), max_likes_total)
-        
-        self.chromedriver = "\\chromedriver79.exe"
-        self.instagram = "https://instagram.com"
-        self.login = "//a[contains(text(), 'Log in')]"
-        self.my_username = "//input[@name=\"username\"]"
-        self.my_password = "//input[@name=\"password\"]"
-        self.submit = '//button[@type="submit"]'
-        self.notnow = "/html/body/div[4]/div/div/div[3]/button[2]"
-        self.heartcolor = "//*[local-name() = 'svg']"
-        self.heartbutton = "/html/body/div[1]/section/main/div/div/article/div[2]/section[1]/span[1]/button"
-        self.photo_username = "/html/body/div[1]/section/main/div/div/article/header/div[2]/div[1]/div[1]/a"
         
         if hashtag == "rand":
             self.hashtags = [y for x in list(csv.reader(open(self.data_folder + "\\Hashtags.csv", "rt", encoding = "utf-8"))) for y in x]
