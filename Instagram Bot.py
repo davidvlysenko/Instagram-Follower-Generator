@@ -32,7 +32,8 @@ class Instabot:
     def __init__(self, hashtag, max_likes_htag, max_likes_total):
 
         #Initialize variables
-        self.links_record = [y for x in list(csv.reader(open(self.data_folder + "\\Links Record.csv", "rt", encoding = "utf-8"))) for y in x if x != []]
+        self.links_record = [y for x in list(csv.reader(open(self.data_folder + "\\Links Record.csv", "rt", encoding = "utf-8")))
+                             for y in x if x != []]
         self.hashtags_searched = []
         self.like_record = []
         self.dead_links = []
