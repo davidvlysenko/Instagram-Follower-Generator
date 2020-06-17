@@ -7,8 +7,6 @@ from random import choice
 from random import randint
 from datetime import datetime
 import logins
-import os
-import inspect
 import csv
 
 
@@ -16,8 +14,7 @@ import csv
 #Create Bot
 class Instabot:
     
-    data_folder = str(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))) #Import from same folder as python file
-    chromedriver = "\\chromedriver79.exe"
+    chromedriver = "chromedriver79.exe"
     instagram = "https://instagram.com"
     login = "//a[contains(text(), 'Log in')]"
     my_username = "//input[@name=\"username\"]"
@@ -32,8 +29,7 @@ class Instabot:
     def __init__(self, hashtag, max_likes_htag, max_likes_total):
 
         #Initialize variables
-        self.links_record = [y for x in list(csv.reader(open(self.data_folder + "\\Links Record.csv", "rt", encoding = "utf-8")))
-                             for y in x if x != []]
+        self.links_record = [y for x in list(csv.reader(open("Links Record.csv", "rt", encoding = "utf-8"))) for y in x if x != []]
         self.hashtags_searched = []
         self.like_record = []
         self.dead_links = []
@@ -42,7 +38,7 @@ class Instabot:
         self.max_likes_total = randint(round(0.67 * max_likes_total), max_likes_total)
         
         if hashtag == "rand":
-            self.hashtags = [y for x in list(csv.reader(open(self.data_folder + "\\Hashtags.csv", "rt", encoding = "utf-8"))) for y in x]
+            self.hashtags = [y for x in list(csv.reader(open("Hashtags.csv", "rt", encoding = "utf-8"))) for y in x]
             self.rand_hashtag = True
         else:
             self.hashtags = [hashtag]
@@ -53,7 +49,7 @@ class Instabot:
     def boot_instagram(self):
 
         #Bootup
-        self.driver = webdriver.Chrome(executable_path = self.data_folder + self.chromedriver)
+        self.driver = webdriver.Chrome(executable_path = self.chromedriver)
 
         #Open webpage
         self.driver.get(self.instagram)
@@ -98,7 +94,7 @@ class Instabot:
         while len(links) < hashtag_likes:
             
             #Make sure that the links haven't been visited before in order to cut down on visiting liked photos
-            #Must combine with old links links since you've scrolled 
+            #Must combine with old links since you've scrolled 
             links = list(set([link for link in links + [a.get_attribute("href") for a in self.driver.find_elements_by_tag_name("a")]
                               if "/p/" in link and link not in self.links_record]))
             sleep(uniform(0.5, 1))
