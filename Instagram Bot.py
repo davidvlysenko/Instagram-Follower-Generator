@@ -166,9 +166,9 @@ class Instabot:
             
         self.driver.quit()
         
-        self.csv_writer(self.dead_links, self.data_folder + "\\Dead Links.csv", "wt")
-        self.csv_writer([x[:-1] + [self.rus_bytes(x[-1])] for x in self.like_record], self.data_folder + "\\Like Record.csv", "a")
-        self.csv_writer([[x] for x in self.links_record], self.data_folder + "\\Links Record.csv", "wt")
+        self.csv_writer(self.dead_links, "Dead Links.csv", "wt")
+        self.csv_writer([x[:-1] + [self.rus_bytes(x[-1])] for x in self.like_record], "Like Record.csv", "a")
+        self.csv_writer([[x] for x in self.links_record], "Links Record.csv", "wt")
         
         print("Time Spent: %s" %round(time() - self.start), ", ", "Likes Given: %s" %self.counter, ", ",
               "Hashtags Searched: %s" %(' '.join([str(elem) for elem in self.hashtags_searched])))
